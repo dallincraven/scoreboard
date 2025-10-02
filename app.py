@@ -12,7 +12,7 @@ c.execute('''
         location TEXT,
         game TEXT,
         dwad INTEGER,
-	brit INTEGER
+		brit INTEGER
     )
 ''')
 conn.commit()
