@@ -37,13 +37,14 @@ df = pd.read_sql_query("SELECT * FROM scores", conn)
 total_games = len(df)
 total_dwad = df['dwad'].sum()
 total_brit = df['brit'].sum()
+brit_count = len(df[df.brit > df.dwad])
 
 if not df.empty:
     st.write("Saved Scores:", df)
     st.header("Score Summary")
     st.write(f"Total Games Played: {total_games}")
-    st.write(f"Total D-Wads Score: {total_dwad}")
-    st.write(f"Total Brits Score: {total_brit}")
+    st.write(f"Brit has won: {brit_count} out of {total_games} games ")
+    st.write(f"D-Wads Total Score: {total_dwad} -----vs-----  Brits Total Score: {total_brit}")
     st.line_chart(df.pivot_table(index='date', columns='game', values='dwad', aggfunc='sum').fillna(0))
     st.download_button("Export CSV", df.to_csv(index=False), "scores.csv")
 else:
