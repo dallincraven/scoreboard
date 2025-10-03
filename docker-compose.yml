@@ -1,0 +1,19 @@
+services:
+  app:
+    image: scoreboard-app
+    container_name: scoreboard-app
+    restart: always
+
+  nginx:
+    image: nginx:alpine
+    container_name: scoreboard-nginx
+    depends_on:
+      - app
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./certs:/etc/letxencrypt
+      - ./certs-data:/data/letsencrypt
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: always
